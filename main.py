@@ -1,28 +1,18 @@
-# import config
-import logging
 import telegram
-import logging
-from telegram import Bot, Update
-from telegram.ext import Dispatcher
 import os
 import logging
 import datetime
 import numpy as np
 
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
 from telegram.ext import (
-    Updater,
+    Dispatcher,
     CommandHandler,
     MessageHandler,
     Filters,
     ConversationHandler,
-    CallbackQueryHandler,
     CallbackContext,
 )
-
-
-patient = {}
-
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
@@ -32,7 +22,9 @@ logger = logging.getLogger(__name__)
 MODE, HIEGHT, WEIGHT, AGE, TEMP, FINISH, SUMMARY = range(7)
 
 id = 0
-
+bot = telegram.Bot(token=os.environ["TELEGRAM_TOKEN"])
+dispatcher = Dispatcher(bot, None, workers=0)
+patient={}
 
 def start(update: Update, context: CallbackContext) -> int:
     """Starts the conversation and asks the user about their gender."""
@@ -176,10 +168,9 @@ def cancel(update: Update, context: CallbackContext) -> int:
     )
 
     return ConversationHandler.END
-# import config
-bot = telegram.Bot(token=os.environ["TELEGRAM_TOKEN"])
-dispatcher = Dispatcher(bot, None, workers=0)
-# os.environ["TELEGRAM_TOKEN"]request
+
+
+
 def md_bot_calc(request) -> None:
     update = telegram.Update.de_json(request.get_json(force=True), bot)
     conv_handler = ConversationHandler(
@@ -193,16 +184,10 @@ def md_bot_calc(request) -> None:
             SUMMARY: [MessageHandler(Filters.text, summary)]
         },
         fallbacks=[CommandHandler('cancel', cancel)],
-        # per_message=True
     )
 
     dispatcher.add_handler(conv_handler)
     dispatcher.process_update(update)
-    # # application.process_update(update)
 
-    # # Run the bot until the user presses Ctrl-C
-    # application.run_polling()
-
-    # dispatcher.add_handler(conv_handler)
 if __name__ == "__main__":
     md_bot_calc()
