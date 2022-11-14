@@ -1,6 +1,6 @@
 #Calorie Calculator
 
-Telegram bot to calculate calories based on python-telegram-botlibrary and google cloud function.
+Telegram bot to calculate calories based on python-telegram-bot library and google cloud function.
 
 Keywords: ConversationHandler, Webhook, google-cloud-funciton, python, telegram, bot
 
