@@ -2,7 +2,7 @@
 
 Telegram bot to calculate calories based on python-telegram-bot library and google cloud function.
 
-Keywords: ConversationHandler, Webhook, google-cloud-funciton, python, telegram, bot
+Keywords: ConversationHandler, Webhook, google-cloud-function, python, telegram, bot
 
 
 Deployment:
