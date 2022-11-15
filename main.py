@@ -97,8 +97,9 @@ def summary(update: Update, context: CallbackContext) -> int:
     patient['age'] = update.message.text
     print(patient)
     list_ = ['Дата: ', 'Пол: ', 'Режим: ', 'Температура [C]: ', 'Рост [см]: ',
+             'Масса тела [кг]: ',
              'Возраст: ',
-             'Масса тела [кг]: ', ]
+              ]
 
     text = 'Отчет:  '+'\n'+'\n'
     for name, label in zip(list_, patient):
